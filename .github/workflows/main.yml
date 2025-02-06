@@ -1,0 +1,28 @@
+name: Biweekly Push
+
+on:
+  schedule:
+    - cron: '0 0 */14 * *'
+
+jobs:
+  biweekly-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name maponce2
+          git config --global user.email maponce@trabajo.com.ar
+          git add .
+          git commit -m "Commit correspondiente a $(date +'%Y-%m-%d')"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
+  
